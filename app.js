@@ -1,7 +1,14 @@
-const container = document.getElementById("container");
+var leftMouseDown = false; 
+var rightMouseDown = false;
+var selectedColor = "#000000";
+var selectRandomColor = false;
 
+const container = document.getElementById("container");
 const createGridBtn = document.querySelector("button");
+const brushColorInput = document.getElementById("brushColor");
+
 createGridBtn.addEventListener('click', createNewGrid);
+brushColorInput.addEventListener('input', (e)=> selectedColor =e.target.value);
 
 let pixels = document.getElementsByClassName("col");
 
@@ -13,7 +20,6 @@ function createGrid(rows, cols){
     for(let a=1; a<=cols; a++){
         let newCol = "<div id=col-"+a+" class='col'></div>";
         newCols = newCols + newCol; 
-        console.log(newCol);
     }
     
     //create rows for grids 
@@ -59,8 +65,12 @@ function createNewGrid(){
 }
 
 function changeColor(e){
-    e.target.style ="background-color: red";
-    console.log(e.target);
+    let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    if(selectRandomColor == true)
+        e.target.style =`background-color: ${randomColor}`;
+    else
+        e.target.style =`background-color: ${selectedColor}`;
 }
 
 createGrid(16,16); 
