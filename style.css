@@ -1,0 +1,23 @@
+:root{
+}
+
+#container{
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 30vw; 
+    height: auto;
+}
+
+.row{
+    display:flex;
+}
+
+.col{
+    border:1px solid black;
+    aspect-ratio: 1/1;
+    width: 100%;
+}
+
+.col:hover{
+    background-color:black;
+}
