@@ -22,17 +22,30 @@ body{
     font-weight: bold;
 }
 
+#toolbar{
+    text-align: center;
+}
+
 #toolbar div{
 background-color: var(--primary);
-width: fit-content;
+width: 100px;
 padding: 20px;
 margin: 20px;
 border-radius: 15px;
 cursor: pointer;
+text-align: center;
+}
+
+#brushTool.defaultTool{
+background-color: var(--accent);
+}
+
+#toolbar:first-of-type("div"){
+    background-color: var(--accent);
 }
 
 #toolbar div:hover{
-background-color: var(--accent);
+    background-color: var(--accent);
 }
 
 #toolbar div svg{
@@ -41,14 +54,21 @@ background-color: var(--accent);
 }
 #container{
     border-collapse: collapse;
-    width: 30vw; 
-    height: auto;
+    width: 600px; 
+    height: 600px;
+    padding-left: 50px;
 }
 
 #main{
     display:flex; 
+    justify-content: center;
+    height: 85vh;
+    align-items: center;
 }
 
+#right{
+    width: 10vw;
+}
 #settings{
     margin: 20px;
 }
@@ -76,6 +96,7 @@ background-color: var(--accent);
 
 .col:hover{
     background-color:black;
+    opacity: 50%;
 }
 
 #footer{
@@ -87,4 +108,16 @@ background-color: var(--accent);
     padding-bottom: 5px;
     bottom: 0; 
     color: var(--text);
+}
+
+button{
+    border:none;
+    background-color: transparent;
+    font-size: 1.5rem;
+}
+
+input[type='color']{
+    width: 80px;
+    height: 80px;
+    border: none;
 }
