@@ -5,7 +5,7 @@
     --background: #ffebf3;
     --primary: #ffc1db;
     --secondary: #ffffff;
-    --accent: #8911c9;
+    --accent: #f500667b;
 }
 
 body{
@@ -23,11 +23,15 @@ body{
 }
 
 #toolbar div{
-background-color: #ffc1db;
+background-color: var(--primary);
 width: fit-content;
 padding: 20px;
 margin: 20px;
 border-radius: 15px;
+}
+
+#toolbar div:hover{
+background-color: var(--accent);
 }
 
 #toolbar div svg{

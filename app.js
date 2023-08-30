@@ -1,16 +1,20 @@
 var leftMouseDown = false; 
 var rightMouseDown = false;
-var selectedColor = "#000000";
+var selectedBackgroundColor = "#FFFFFF"; 
+var selectedBrushColor = "#000000";
 var selectRandomColor = false;
+var selectedEraser = false;
 
 const container = document.getElementById("container");
 const createGridBtn = document.getElementById("createBtn");
 const clearGridBtn = document.getElementById("clearBtn");
 const brushColorInput = document.getElementById("brushColor");
+const selectEraserBtn = document.getElementById("eraseTool");
 
 createGridBtn.addEventListener('click', createNewGrid);
 clearGridBtn.addEventListener('click',clearGrid);
-brushColorInput.addEventListener('input', (e)=> selectedColor =e.target.value);
+brushColorInput.addEventListener('input', (e)=> selectedBrushColor =e.target.value);
+selectEraserBtn.addEventListener('click', selectEraser); 
 
 let pixels = document.getElementsByClassName("col");
 
@@ -108,6 +112,11 @@ function clearGrid(){
         pixels[i].style = `background-color: white`;
     }
     leftMouseDown = false; 
+}
+
+function selectEraser(){
+    selectedEraser = true; 
+    selectEraserBtn.style = `background-color: ${selectedBackgroundColor}`    
 }
 
 createGrid(16,16); 
