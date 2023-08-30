@@ -14,6 +14,24 @@ brushColorInput.addEventListener('input', (e)=> selectedColor =e.target.value);
 
 let pixels = document.getElementsByClassName("col");
 
+container.addEventListener("mousedown", (e)=> {
+    if(e.button==0){
+        leftMouseDown= true; 
+    }
+    if(e.button==2){
+        rightMouseDown = true;
+    }
+})
+
+container.addEventListener("mouseup", (e)=> {
+    if(e.button==0){
+        leftMouseDown= false; 
+    }
+    if(e.button==2){
+        rightMouseDown = false;
+    }
+})
+
 function createGrid(rows, cols){
     var grid = "";
     var newCols =""; 
@@ -31,7 +49,13 @@ function createGrid(rows, cols){
     }
 
     container.innerHTML=grid;
+    
+}
 
+function addEventListener(){
+    for(i=0; i<pixels.length; i++){
+        pixels[i].addEventListener('mouseenter', changeColor);
+    }
 }
 
 function promptInput(type){
@@ -67,24 +91,23 @@ function createNewGrid(){
 }
 
 function changeColor(e){
-    let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-
-    if(selectRandomColor == true)
-        e.target.style =`background-color: ${randomColor}`;
-    else
-        e.target.style =`background-color: ${selectedColor}`;
-}
-
-function addEventListener(){
-    for(i=0; i<pixels.length; i++){
-        pixels[i].addEventListener('mouseover', changeColor);
+    if(leftMouseDown){
+        console.log(`change color ${e.button}`);
+        let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    
+        if(selectRandomColor == true)
+            e.target.style =`background-color: ${randomColor}`;
+        else
+            e.target.style =`background-color: ${selectedColor}`;
     }
 }
+
 
 function clearGrid(){
     for(i=0; i<pixels.length; i++){
         pixels[i].style = `background-color: white`;
     }
+    leftMouseDown = false; 
 }
 
 createGrid(16,16); 
