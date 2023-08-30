@@ -4,10 +4,12 @@ var selectedColor = "#000000";
 var selectRandomColor = false;
 
 const container = document.getElementById("container");
-const createGridBtn = document.querySelector("button");
+const createGridBtn = document.getElementById("createBtn");
+const clearGridBtn = document.getElementById("clearBtn");
 const brushColorInput = document.getElementById("brushColor");
 
 createGridBtn.addEventListener('click', createNewGrid);
+clearGridBtn.addEventListener('click',clearGrid);
 brushColorInput.addEventListener('input', (e)=> selectedColor =e.target.value);
 
 let pixels = document.getElementsByClassName("col");
@@ -73,12 +75,17 @@ function changeColor(e){
         e.target.style =`background-color: ${selectedColor}`;
 }
 
-createGrid(16,16); 
-addEventListener();
-
-
 function addEventListener(){
     for(i=0; i<pixels.length; i++){
         pixels[i].addEventListener('mouseover', changeColor);
     }
 }
+
+function clearGrid(){
+    for(i=0; i<pixels.length; i++){
+        pixels[i].style = `background-color: white`;
+    }
+}
+
+createGrid(16,16); 
+addEventListener();
