@@ -1,20 +1,23 @@
 var leftMouseDown = false; 
 var rightMouseDown = false;
-var selectedBackgroundColor = "#FFFFFF"; 
+var selectedCanvasColor = "#FFFFFF"; 
 var selectedBrushColor = "#000000";
 var selectRandomColor = false;
-var selectedEraser = false;
+var selectedEraserTool = false;
+var selectedBrushTool = true;
 
 const container = document.getElementById("container");
 const createGridBtn = document.getElementById("createBtn");
 const clearGridBtn = document.getElementById("clearBtn");
 const brushColorInput = document.getElementById("brushColor");
 const selectEraserBtn = document.getElementById("eraseTool");
+const selectBrushBtn = document.getElementById("brushTool");
 
 createGridBtn.addEventListener('click', createNewGrid);
 clearGridBtn.addEventListener('click',clearGrid);
 brushColorInput.addEventListener('input', (e)=> selectedBrushColor =e.target.value);
-selectEraserBtn.addEventListener('click', selectEraser); 
+selectEraserBtn.addEventListener('click', selectTool); 
+selectBrushBtn.addEventListener('click', selectTool); 
 
 let pixels = document.getElementsByClassName("col");
 
@@ -56,12 +59,6 @@ function createGrid(rows, cols){
     
 }
 
-function addEventListener(){
-    for(i=0; i<pixels.length; i++){
-        pixels[i].addEventListener('mouseenter', changeColor);
-    }
-}
-
 function promptInput(type){
     let input; 
 
@@ -94,18 +91,28 @@ function createNewGrid(){
         addEventListener(); 
 }
 
-function changeColor(e){
-    if(leftMouseDown){
-        console.log(`change color ${e.button}`);
-        let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    
-        if(selectRandomColor == true)
-            e.target.style =`background-color: ${randomColor}`;
-        else
-            e.target.style =`background-color: ${selectedColor}`;
+function addEventListener(){
+    for(i=0; i<pixels.length; i++){
+        pixels[i].addEventListener('mouseenter', changeColor);
     }
 }
 
+function changeColor(e){
+    let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+
+    //brushtool
+    if(leftMouseDown && selectedBrushTool){
+        if(selectRandomColor == true)
+            e.target.style =`background-color: ${randomColor}`;
+        else
+            e.target.style =`background-color: ${selectedBrushColor}`;
+    }
+
+    //eraserTool
+    if(leftMouseDown && selectedEraserTool){
+        e.target.style = `background-color: ${selectedCanvasColor}`;
+    }
+}
 
 function clearGrid(){
     for(i=0; i<pixels.length; i++){
@@ -114,10 +121,28 @@ function clearGrid(){
     leftMouseDown = false; 
 }
 
-function selectEraser(){
-    selectedEraser = true; 
-    selectEraserBtn.style = `background-color: ${selectedBackgroundColor}`    
+function selectTool(e){
+    let accentColor = getComputedStyle(document.body).getPropertyValue('--accent');
+    let primaryColor = getComputedStyle(document.body).getPropertyValue('--primary');
+
+    selectedEraserTool = false; 
+    selectEraserBtn.style = `background-color: ${primaryColor}`;
+    selectedBrushTool = false; 
+    selectBrushBtn.style = `background-color: ${primaryColor}`;
+
+    if(e.target.id == "eraseTool"){
+        selectedEraserTool = true; 
+        selectEraserBtn.style = `background-color: ${accentColor}`    
+    }
+
+    if(e.target.id == "brushTool"){
+        selectedBrushTool = true; 
+        selectBrushBtn.style = `background-color: ${accentColor}`
+    }
+
+
 }
+
 
 createGrid(16,16); 
 addEventListener();
