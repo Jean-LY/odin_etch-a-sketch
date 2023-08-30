@@ -95,8 +95,9 @@ const randomColorBtn = document.getElementById("randomColorBtn");
 randomColorBtn.addEventListener('click', ()=>{
     if(!selectedRandomColor){
         selectedRandomColor = true;
-        randomColorBtn.style = 'background-color: coral';
+        randomColorBtn.style = 'background-color: coral'; 
     }
+    
     else{
         selectedRandomColor=false;
         randomColorBtn.style = `background-color: ${primaryColor}`;
