@@ -93,12 +93,15 @@ var selectedRandomColor = false;
 
 const randomColorBtn = document.getElementById("randomColorBtn");
 randomColorBtn.addEventListener('click', ()=>{
-    selectedRandomColor = randomColorBtn.checked;
+    if(!selectedRandomColor){
+        selectedRandomColor = true;
+        randomColorBtn.style = 'background-color: coral';
+    }
+    else{
+        selectedRandomColor=false;
+        randomColorBtn.style = `background-color: ${primaryColor}`;
+    }
 })
-
-function getRandomColor(){
-    return "#" + Math.floor(Math.random() * 16777215).toString(16);
-}
 
 //set eraser color 
 var eraserColor = "#FFFFFF"; 
@@ -168,8 +171,12 @@ function stopPainting(){
 function paint(e){
     //brushtool
     if(selectedBrushTool){
-        if(selectedRandomColor == true)
+        if(selectedRandomColor == true){
+            let randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+            if(randomColor == "#FFFFFF")
+                randomColor = "#6ebe49";
             e.target.style =`background-color: ${randomColor}`;
+        }
         else
             e.target.style =`background-color: ${selectedBrushColor}`;
     }
